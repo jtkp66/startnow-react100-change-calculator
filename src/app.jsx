@@ -3,7 +3,31 @@ import React, { Component } from 'react';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      amountDue: 0,
+      amountReceived: 0,
+      changeDue: 0,
+      twenties: 0,
+      tens: 0,
+      fives: 0,
+      ones: 0,
+      quarters: 0,
+      dimes: 0,
+      nickels: 0,
+      pennies: 0
+    }
+    var dollars = Math.floor(changeDue);
+    changeDue = changeDue % 1;
+    var quarters = Math.floor(changeDue / 0.25);
+    changeDue = changeDue % 0.25;
+    var dimes = Math.floor(changeDue / 0.10);
+    changeDue = changeDue % 0.10;
+    var nickels = Math.floor(changeDue / 0.05);
+    changeDue = changeDue % 0.05;
+    var pennies = Math.floor(Math.round(changeDue / 0.01));
+    changeDue = changeDue % 0.01;
   }
+
 
   render() {
     return (
