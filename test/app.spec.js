@@ -74,7 +74,7 @@ describe('express', function() {
     .type('input[name=amountReceived]', 20)
     .click('button.btn')
     .wait('div.alert.alert-success')
-    .evaluate(() => Array.from(document.querySelectorAll('div.well > p.lead')).map(e => e.innerText))
+    .evaluate(() => Array.from(document.querySelectorAll('div.card-body > h5')).map(e => e.innerText))
     .then((results) => {
       const expected = {
         twenties: '0',
