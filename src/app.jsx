@@ -14,8 +14,40 @@ class App extends Component {
       quarters: 0,
       dimes: 0,
       nickels: 0,
-      pennies: 0
-    }
+      pennies: 0,
+      total: 0
+    },
+
+      this.handleInputChange = this.handleInputChange.bind(this)
+    this.calculate = this.calculate.bind(this)
+  };
+
+  handleInputChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    }, () => console.log(this.state))
+
+    return this.setState({
+      [name]: e.value,
+    });
+  }
+
+
+  // calculate({ amountDue, amountReceived }) {
+  //   var amountDue = this.state.amount-due.value;
+  //   var amountReceived = document.getElementById("amount-received").value;
+  //   var changeDue = parseFloat(amountReceived) - parseFloat(amountDue);
+
+  calculate() {
+    var changeDue = parseInt(this.state.amountReceived - this.state.amountDue);
+    var total = changeDue;
+
+    var twenties = Math.floor(changeDue);
+    changeDue = changeDue % 20;
+    var tens = Math.floor(changeDue);
+    changeDue = changeDue % 10;
+    var fives = Math.floor(changeDue);
+    changeDue = changeDue % 5;
     var dollars = Math.floor(changeDue);
     changeDue = changeDue % 1;
     var quarters = Math.floor(changeDue / 0.25);
@@ -26,8 +58,18 @@ class App extends Component {
     changeDue = changeDue % 0.05;
     var pennies = Math.floor(Math.round(changeDue / 0.01));
     changeDue = changeDue % 0.01;
-  }
+    console.log(changeDue);
 
+    this.setState({
+      total,
+      changeDue,
+      dollars,
+      quarters,
+      dimes,
+      nickels,
+      pennies
+    })
+  }
 
   render() {
     return (
@@ -39,52 +81,55 @@ class App extends Component {
           <div className="col-sm-4">
             <div className="card">
               <div className="card-header bg-secondary">
-                <h5 className='text-dark'>Enter Information</h5>
+                <h5 className='text-dark'>Enter Information!</h5>
               </div>
               <div className="card-body">
                 <p className="card-text">How much is due?</p>
-                <input className="input mb-3" type="text" id="amount due" placeholder="Fuck Yea"></input>
+                <input name='amountDue' className="input mb-3" type="number" id="amount-due" placeholder="Oh" onChange={this.handleInputChange}></input>
                 <p className="card-text">How much is owed?</p>
-                <input className="input mb-3" type="text" id="amount back" placeholder="Fuck Yea"></input>
+                <input name="amountReceived" className="input mb-3" type="number" id="amount-received" placeholder="Yea" onChange={this.handleInputChange}></input>
                 <div className="card-footer">
-                  <button className="btn btn-secondary btn-block">Go somewhere</button>
+                  <button className="btn btn-primary btn-block" name="btn" onClick={this.calculate}>Calculate</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-sm-8">
             <div className="card">
+              <div name="output" className="card-header bg-secondary">
+                <h5 className='text-dark text-center'>{this.state.total}</h5>
+              </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col-sm-3">
                     <div className="card mb-3">
                       <div className="card-body">
-                        <p className="card-text text-center">Twenties</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Twenties</label>
+                        <p className="card-text text-center">{this.state.twenties}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card mb-3">
                       <div className="card-body">
-                        <p className="card-text text-center">Tens</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Tens</label>
+                        <p className="card-text text-center">{this.state.tens}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card mb-3">
                       <div className="card-body">
-                        <p className="card-text text-center">Fives</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Fives</label>
+                        <p className="card-text text-center">{this.state.fives}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card mb-3">
                       <div className="card-body">
-                        <p className="card-text text-center">Ones</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Ones</label>
+                        <p className="card-text text-center">{this.state.ones}</p>
                       </div>
                     </div>
                   </div>
@@ -93,32 +138,32 @@ class App extends Component {
                   <div className="col-sm-3">
                     <div className="card">
                       <div className="card-body">
-                        <p className="card-text text-center">Quarters</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Quarters</label>
+                        <p className="card-text text-center">{this.state.quarters}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card">
                       <div className="card-body">
-                        <p className="card-text text-center">Dimes</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Dimes</label>
+                        <p className="card-text text-center">{this.state.dimes}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card">
                       <div className="card-body">
-                        <p className="card-text text-center">Nickels</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Nickels</label>
+                        <p className="card-text text-center">{this.state.nickels}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-sm-3">
                     <div className="card">
                       <div className="card-body">
-                        <p className="card-text text-center">Pennies</p>
-                        <p className="card-text text-center">0</p>
+                        <label>Pennies</label>
+                        <p className="card-text text-center">{this.state.pennies}</p>
                       </div>
                     </div>
                   </div>
@@ -131,12 +176,20 @@ class App extends Component {
     );
   }
 }
-
 export default App;
 
 
 
-
-
-
-
+// {/* // // // onChange={ this.onInputChange }
+// // // /* <div className="output-div">
+// // //  <p id="output" className={ this.state.output }>{ this.state.total }</p>
+// // //            <label className="twenties money-label" htmlFor="twenties">
+// // //              Twenties */
+// <div className="output-div">
+//               <div className="col-sm-8">
+//                 <div className="card">
+//                   <div className="card-body">
+//                     <p id="output">{this.state.total}stuff</p>
+//                   </div>
+//               </div>
+//             </div>
